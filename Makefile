@@ -11,25 +11,11 @@ endif
 
 TRASH_FILES := terraform.tfstate terraform.tfstate.backup crash.log
 
-define EXCLUDE_CASE_NAMES
-# FIXME: 'C2DEVEL-3389'
-aws_ami_from_instance
-# FIXME: 'C2DEVEL-4478'
-aws_customer_gateway
-endef
-
 .PHONY: all clean init show-cases clean-all
 .SILENT: all clean init show-cases clean-all
 
-all: clean
-	$(foreach case, \
-		$(CASES_NAMES), \
-			$(if $(filter $(case),$(EXCLUDE_CASE_NAMES)),, \
-				$(MAKE) plan-$(case) || exit $$; \
-				$(MAKE) apply-$(case) || exit $$; \
-				$(MAKE) destroy-$(case) || exit $$; \
-		) \
-	)
+all: clean generate
+all: ; @go test ./cases/... -count=1
 
 init: ; @$(TERRAFORM) init
 
@@ -53,14 +39,11 @@ clean-all: clean
 define TERRAFORM_CASE_CMD
 
 .PHONY: $(1)-$(lastword $(subst /, ,$(2)))
-$(1)-$(lastword $(subst /, ,$(2))):
-	cd $(2) && \
-		ln -sf $(WORKDIR)/.terraform $(2) && \
-		ln -sf $(WORKDIR)/main.tf $(2)provider.tf && \
-		ln -sf $(WORKDIR)/terraform.tfvars $(2) && \
-		bash -c 'yes yes | TF_LOG=$(TF_LOG) $(TERRAFORM) $(1)'
+$(1)-$(lastword $(subst /, ,$(2))): ; @go test $(2) -count=1
 endef
 
 $(foreach path,$(CASES_PATHS),$(eval $(call TERRAFORM_CASE_CMD,plan,$(path))))
 $(foreach path,$(CASES_PATHS),$(eval $(call TERRAFORM_CASE_CMD,apply,$(path))))
 $(foreach path,$(CASES_PATHS),$(eval $(call TERRAFORM_CASE_CMD,destroy,$(path))))
+
+generate: ; @go generate ./cases
