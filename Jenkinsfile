@@ -1,12 +1,11 @@
 pipeline {
   agent none
   stages {
-    stage('') {
+    stage('run') {
       agent {
         docker {
-          image 'golang:1.12'
+          dockerfile true
         }
-
       }
       steps {
         sh 'make all'
