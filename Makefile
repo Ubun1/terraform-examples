@@ -73,4 +73,6 @@ $(foreach path,$(CASES_PATHS),$(eval $(call TERRAFORM_CASE_CMD,validate,$(path))
 lint-rst: init
 	$(VENV)/rstcheck -r .
 
-lint-terraform: init $(foreach name,$(CASES_NAMES),validate-$(name))
+lint-terraform: init create-stub-tfvars $(foreach name,$(CASES_NAMES),validate-$(name))
+
+create-stub-tfvars: ; cp terraform.tfvars{.example,}
