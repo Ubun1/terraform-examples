@@ -5,7 +5,7 @@ pipeline {
       agent { docker 
         { 
           image 'hashicorp/terraform:0.11.14'
-          args '-v $PWD:/root/proj'
+          args '-v $(pwd):/root/proj'
         }
       }
       steps { sh 'cd /root/proj && make lint-terraform' }
@@ -14,7 +14,7 @@ pipeline {
       agent { docker 
         { 
           image 'python3'
-          args '-v $PWD:/root/proj'
+          args '-v $(pwd):/root/proj'
         }
       }
       steps { sh 'cd /root/proj && make lit-rst' }
