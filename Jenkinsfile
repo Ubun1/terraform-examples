@@ -5,7 +5,7 @@ pipeline {
       steps { sh 'make lint-terraform' }
     }
     stage('rstcheck') {
-      steps { sh 'make lit-rst' }
+      steps { sh 'make lint-rst' }
     }
   }
 }
