@@ -10,7 +10,6 @@ dependencies="
       sed: ......................... > 4.x.x
       terraform: ................... > 0.9.x and < 0.12.x
       findutils: ................... > 4.x.x
-      coreutils: ................... > 8.x.x
 
 ------------------------------------------------------------------------
 "
@@ -31,12 +30,6 @@ else
   AC_MSG_RESULT([$GIT_VERSION])
   VERSION="$GIT_VERSION"
 fi
-
-AC_CHECK_PROG(YES,yes,yes)
-if test x$YES = "x" ; then
-  AC_MSG_ERROR("${dependencies}yes is required to run examples.")
-fi
-yes_version=$(yes --version | head -n 1 | awk '{print $4}')
 
 AC_CHECK_PROG(MAKE,make,make)
 if test x$MAKE = "x" ; then
@@ -76,7 +69,6 @@ AC_MSG_RESULT([
       Terraform version: ............. ${terraform_version}
       Find version: .................. ${find_version}
       Xargs version: ................. ${xargs_version}
-      Yes version: ................... ${yes_version}
 
 ------------------------------------------------------------------------
 ])
