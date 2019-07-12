@@ -1,5 +1,6 @@
 pipeline {
   agent none
+    stages {
     stage('terraform validate') {
       agent { docker 
         { 
@@ -18,4 +19,5 @@ pipeline {
       }
       steps { sh 'cd /root/proj && make lit-rst' }
     }
+  }
 }
