@@ -30,7 +30,7 @@ all: clean
 	)
 
 init: 
-ifeq ($(wildcard $(PIP)),)
+ifeq ($(wildcard .venv/.*),)
 	mkdir .venv
 	virtualenv -p python3 .venv
 endif
