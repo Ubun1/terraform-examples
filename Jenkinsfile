@@ -1,23 +1,11 @@
 pipeline {
-  agent none
+    agent { dockerfile true }
     stages {
     stage('terraform validate') {
-      agent { docker 
-        { 
-          image 'hashicorp/terraform:0.11.14'
-          args '-v ${PWD}:/root/proj'
-        }
-      }
-      steps { sh 'cd /root/proj && make lint-terraform' }
+      steps { sh 'make lint-terraform' }
     }
     stage('rstcheck') {
-      agent { docker 
-        { 
-          image 'python3'
-          args '-v ${PWD}:/root/proj'
-        }
-      }
-      steps { sh 'cd /root/proj && make lit-rst' }
+      steps { sh 'make lit-rst' }
     }
   }
 }
