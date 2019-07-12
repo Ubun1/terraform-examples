@@ -2,11 +2,7 @@ pipeline {
   agent none
   stages {
     stage('run') {
-      agent {
-        docker {
-          dockerfile true
-        }
-      }
+      agent { dockerfile true }
       steps {
         sh 'make all'
       }
