@@ -14,7 +14,7 @@ steps:
 
 trigger:
   branch:
-  - add-ci
+  - master
   event:
   - push
 
