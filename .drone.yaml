@@ -3,6 +3,7 @@ name: some-checks
 
 steps:
 - name: build image
+  image: fedora
   commands:
     - docker build -t local_build_image . 
 
