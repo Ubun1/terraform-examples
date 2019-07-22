@@ -87,3 +87,4 @@
 * Use ``make clean`` to remove ``terraform.tfstate*`` and ``crash.log`` files
 
 * Use ``make clean-all`` to remove ``aws provider``
+test
