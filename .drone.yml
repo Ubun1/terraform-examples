@@ -3,19 +3,18 @@ name: some-checks
 
 steps:
 - name: build image
-  image: fedora
-  commands:
-    - docker build -t local_build_image . 
+  image: plugins/docker
+  settings:
+    repo: local/build
+    registry: registry:5000
 
 - name: rst-lint
-  image: local_build_image
+  image: local/build
   commands:
   - make lint-rst
-
 
 trigger:
   branch:
   - master
   event:
   - push
-
