@@ -10,7 +10,7 @@ steps:
     insecure: true
 
 - name: rst-lint
-  image: local/build
+  image: 10.10.0.4:5000/local/build
   commands:
   - make lint-rst
 
