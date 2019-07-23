@@ -6,7 +6,7 @@ steps:
   image: plugins/docker
   settings:
     repo: registry:5000/local/build
-    registry: registry:5000
+    registry: http://registry:5000
 
 - name: rst-lint
   image: local/build
