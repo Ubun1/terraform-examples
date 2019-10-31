@@ -35,7 +35,6 @@ resource "aws_instance" "test_instance" {
   monitoring                           = true
   vpc_security_group_ids               = ["${aws_security_group.test_security_group.id}", "${aws_security_group.additional_security_group.id}"]
   subnet_id                            = "${aws_subnet.test_subnet.id}"
-  private_ip                           = "${cidrhost(aws_subnet.test_subnet.cidr_block, 3)}"
   source_dest_check                    = true
   user_data                            = "echo hello"
 }
